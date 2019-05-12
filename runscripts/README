@@ -1,0 +1,12 @@
+# check to see if running
+ps aux | egrep "usbmodem|idleevents"
+
+# start the job that reads the sit/stand switch
+cat /dev/cu.usbmodem123451 > ssstatefile &
+
+# start the job that gathers the sit/stand and active/idle events with timestamps
+./idleevents.awk >> idleevents.dat &
+
+# monitor the file
+tail -f idleevents.dat
+
